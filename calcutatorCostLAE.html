@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Costo</title>
+    <script>
+        const exchangeRate = 64; // Set the exchange rate here
+
+        function calculateCost() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const unit = document.querySelector('input[name="unit"]:checked').value;
+            let weightInKg = weight;
+
+            if (unit === 'grams') {
+                weightInKg = weight / 1000;
+            }
+
+            let cost = 0;
+            if (weightInKg <= 0.15) cost = 2.18;
+            else if (weightInKg <= 0.5) cost = 2.78;
+            else if (weightInKg <= 1) cost = 3.05;
+            else if (weightInKg <= 2) cost = 5.85;
+            else if (weightInKg <= 3) cost = 8.63;
+            else if (weightInKg <= 4) cost = 11.31;
+            else if (weightInKg <= 5) cost = 14.09;
+            else if (weightInKg <= 6) cost = 16.86;
+            else if (weightInKg <= 8) cost = 19.64;
+            else if (weightInKg <= 10) cost = 22.42;
+            else if (weightInKg <= 12) cost = 24.06;
+            else if (weightInKg <= 14) cost = 25.40;
+            else if (weightInKg <= 16) cost = 28.67;
+            else if (weightInKg <= 18) cost = 31.76;
+            else if (weightInKg <= 21) cost = 37.36;
+            else if (weightInKg <= 24) cost = 41.81;
+            else if (weightInKg <= 27) cost = 46.82;
+            else if (weightInKg <= 30) cost = 51.70;
+            else if (weightInKg <= 33) cost = 51.60;
+            else if (weightInKg <= 36) cost = 55.98;
+            else if (weightInKg <= 39) cost = 57.65;
+            else if (weightInKg <= 42) cost = 60.87;
+            else if (weightInKg <= 45) cost = 63.42;
+            else if (weightInKg <= 48) cost = 65.09;
+            else if (weightInKg <= 51) cost = 68.01;
+            else if (weightInKg <= 54) cost = 69.94;
+            else if (weightInKg <= 57) cost = 72.70;
+            else if (weightInKg <= 60) cost = 75.31;
+            else if (weightInKg <= 63) cost = 77.28;
+            else if (weightInKg <= 66) cost = 80.04;
+            else if (weightInKg <= 69) cost = 83.35;
+            else if (weightInKg <= 72) cost = 85.82;
+            else if (weightInKg <= 75) cost = 88.21;
+            else if (weightInKg <= 80) cost = 90.97;
+
+            const costInBs = cost * exchangeRate;
+
+            document.getElementById('costUSD').innerText = `$${cost.toFixed(2)}`;
+            document.getElementById('costBs').innerText = `${costInBs.toFixed(2)} Bs`;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('weight').addEventListener('input', calculateCost);
+            document.querySelectorAll('input[name="unit"]').forEach(radio => {
+                radio.addEventListener('change', calculateCost);
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Calculadora de Costo de Envío</h1>
+    <form>
+        <label for="weight">Peso del paquete:</label>
+        <input type="number" id="weight" name="weight" step="0.01" required>
+        <label>
+            <input type="radio" name="unit" value="kg" checked> kg
+        </label>
+        <label>
+            <input type="radio" name="unit" value="grams"> grams
+        </label>
+    </form>
+    <p>Precio del envío: <span id="costUSD">$0.00</span></p>
+    <p>Precio del envío: <span id="costBs">0.00 Bs</span></p>
+</body>
+</html>
